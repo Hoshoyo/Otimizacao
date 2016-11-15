@@ -1,7 +1,42 @@
 #ifndef OTIM_UTILS_H
 #define OTIM_UTILS_H
 
+#if defined(_WIN32)
+#define copy_str(A, B) strcpy_s(A, B)
+#else
+#define copy_str(A, B) strcpy(A, B)
+#endif
+
 typedef unsigned char u8;
+
+struct vec2
+{
+	float x, y;
+	vec2()
+	{
+		x = 0.0f;
+		y = 0.0f;
+	}
+	vec2(float x, float y)
+		: x(x), y(y)
+	{
+	}
+
+	const vec2& operator-(const vec2& r)
+	{
+		return vec2(this->x - r.x, this->y - r.y);
+	}
+	const vec2& operator+(const vec2& r)
+	{
+		return vec2(this->x + r.x, this->y + r.y);
+	}
+
+	float distance(vec2& r)
+	{
+		vec2 v = *this - r;
+		return sqrt(v.x * v.x + v.y * v.y);
+	}
+};
 
 void skip(char** data, char c)
 {

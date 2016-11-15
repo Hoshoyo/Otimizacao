@@ -1,65 +1,9 @@
-#if defined(_WIN32)
-#define copy_str(A, B) strcpy_s(A, B)
-#else
-#define copy_str(A, B) strcpy(A, B)
-#endif
 #include <iostream>
 #include <vector>
-#include "../include/utils.h"
+#include "cvrp.h"
+#include "sim_annealing.cpp"
 
 using namespace std;
-
-struct vec2
-{
-	float x, y;
-	vec2()
-	{
-		x = 0.0f;
-		y = 0.0f;
-	}
-	vec2(float x, float y)
-		: x(x), y(y)
-	{
-	}
-};
-
-struct ProblemInstance
-{
-	char name[64];
-	char type[256];
-	char comment[256];
-	int dimension;
-	int capacity;
-	int vehicles;
-	char edge_weight_type[64];
-	char edge_weight_format[64];
-	char node_coord_type[64];
-
-	vector<vec2> node_coord;
-	vector<int> demand;
-
-	vec2 depot;
-};
-
-
-char fields[][32] = { "NAME", "TYPE", "COMMENT", "DIMENSION", "CAPACITY", "VEHICLES", "EDGE_WEIGHT_TYPE", "EDGE_WEIGHT_FORMAT",
-					  "NODE_COORD_TYPE", "NODE_COORD_SECTION", "DEMAND_SECTION", "DEPOT_SECTION", "EOF" };
-enum Fields
-{
-	NAME,
-	TYPE,
-	COMMENT,
-	DIMENSION,
-	CAPACITY,
-	VEHICLES,
-	EDGE_WEIGHT_TYPE,
-	EDGE_WEIGHT_FORMAT,
-	NODE_COORD_TYPE,
-	NODE_COORD_SECTION,
-	DEMAND_SECTION,
-	DEPOT_SECTION,
-	_EOF
-};
 
 ProblemInstance parse_data(char** data)
 {
@@ -163,7 +107,99 @@ int main(int argc, char** argv)
 
 	char* ptr = data;
 	ProblemInstance prob = parse_data(&data);
-
 	delete[] ptr;
+
+	std::vector<Vehicle> solution;
+	while (GenRandomSolution(&prob, solution, GEN_SEED) == 0);
+
+	float current_cost = 0;
+	for (int i = 0; i < solution.size(); ++i)
+	{
+		current_cost += CalculateCost(solution[i], prob.depot);
+	}
+
+	srand(time(0));
+	int vrand1 = 0;
+	int vrand2 = 0;
+	int crand1 = 0;
+	int crand2 = 0;
+
+	std::cout << current_cost << "\n";
+	int num_it = 10000000;
+	int max = 0;
+	for (int it = 0; it < num_it; ++it)
+	{
+		do
+		{
+			
+			do {
+				vrand1 = rand() % 5;
+				vrand2 = rand() % 5;
+				crand1 = rand() % solution[vrand1].route.size();
+				crand2 = rand() % solution[vrand2].route.size();
+			} while (crand1 == crand2);
+			
+		} while (!GetNeighbor(solution[vrand1], solution[vrand2], crand1, crand2));
+
+		Client temp = solution[vrand1].route[crand1];
+		solution[vrand1].route[crand1] = solution[vrand2].route[crand2];
+		solution[vrand2].route[crand2] = temp;
+
+		float next_cost = 0;
+		for (int i = 0; i < solution.size(); ++i)
+			next_cost += CalculateCost(solution[i], prob.depot);
+
+		if (next_cost < current_cost)
+		{
+			current_cost = next_cost;
+			std::cout << "better " << current_cost << "\n";
+			max = 0;
+		}
+		else
+		{
+			Client temp = solution[vrand1].route[crand1];
+			solution[vrand1].route[crand1] = solution[vrand2].route[crand2];
+			solution[vrand2].route[crand2] = temp;
+		}
+		if (max > 10000)
+			break;
+		++max;
+	}
+	
+	/*
+	// 46 5 49 10 39 33 45 15 44 37 12	Optimal solution
+	Vehicle test;
+	Client c1(prob.node_coord[46 - 1].x, prob.node_coord[46 - 1].y);
+	test.route.push_back(c1);
+	Client c2(prob.node_coord[5 - 1].x, prob.node_coord[5 - 1].y);
+	test.route.push_back(c2);
+	Client c3(prob.node_coord[49 - 1].x, prob.node_coord[49 - 1].y);
+	test.route.push_back(c3);
+	Client c4(prob.node_coord[10 - 1].x, prob.node_coord[10 - 1].y);
+	test.route.push_back(c4);
+	Client c5(prob.node_coord[39 - 1].x, prob.node_coord[39 - 1].y);
+	test.route.push_back(c5);
+	Client c6(prob.node_coord[33 - 1].x, prob.node_coord[33 - 1].y);
+	test.route.push_back(c6);
+	Client c7(prob.node_coord[45 - 1].x, prob.node_coord[45 - 1].y);
+	test.route.push_back(c7);
+	Client c8(prob.node_coord[15 - 1].x, prob.node_coord[15 - 1].y);
+	test.route.push_back(c8);
+	Client c9(prob.node_coord[44 - 1].x, prob.node_coord[44 - 1].y);
+	test.route.push_back(c9);
+	Client c10(prob.node_coord[37 - 1].x, prob.node_coord[37 - 1].y);
+	test.route.push_back(c10);
+	Client c11(prob.node_coord[12 - 1].x, prob.node_coord[12 - 1].y);
+	test.route.push_back(c11);
+	*/
+	
+
+	// Calculate the final cost
+	float total_cost = 0;
+	for (int i = 0; i < solution.size(); ++i)
+	{
+		total_cost += CalculateCost(solution[i], prob.depot);
+	}
+	std::cout << "The total cost of the algorithm is " << total_cost << std::endl;
 	return 0;
 }
