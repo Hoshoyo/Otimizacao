@@ -2,6 +2,8 @@
 #include <vector>
 #include "cvrp.h"
 #include "sim_annealing.cpp"
+#include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -110,7 +112,7 @@ int main(int argc, char** argv)
 	delete[] ptr;
 
 	std::vector<Vehicle> solution;
-	while (GenRandomSolution(&prob, solution, GEN_SEED) == 0);
+	while (GenSolution(&prob, solution) == 0);
 
 	float current_cost = 0;
 	for (int i = 0; i < solution.size(); ++i)
@@ -161,9 +163,6 @@ int main(int argc, char** argv)
 			solution[vrand1].route[crand1] = solution[vrand2].route[crand2];
 			solution[vrand2].route[crand2] = temp;
 		}
-		if (max > 10000)
-			break;
-		++max;
 	}
 	
 	/*
@@ -199,7 +198,23 @@ int main(int argc, char** argv)
 	for (int i = 0; i < solution.size(); ++i)
 	{
 		total_cost += CalculateCost(solution[i], prob.depot);
+		std::cout << "Rota " << i << ": ";
+		for (int j = 0; j < solution[i].route.size(); ++j)
+			std::cout << solution[i].route[j].id << " ";
+		std::cout << "\n";
 	}
 	std::cout << "The total cost of the algorithm is " << total_cost << std::endl;
+
+	for (int i = 0; i < solution.size(); ++i)
+	{
+		std::string dat = "data" + std::to_string(i) + ".txt";
+		std::ofstream file;
+		file.open(dat);
+
+		for (int j = 0; j < solution[i].route.size(); ++j)
+			file << solution[i].route[j].x << " " << solution[i].route[j].y << "\n";
+		file.close();
+	}
+
 	return 0;
 }

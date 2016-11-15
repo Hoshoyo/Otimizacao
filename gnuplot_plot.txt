@@ -1,0 +1,5 @@
+plot "data0.txt" with linespoints, \
+"data1.txt" with linespoints, \
+"data2.txt" with linespoints, \
+"data3.txt" with linespoints, \
+"data4.txt" with linespoints
