@@ -7,4 +7,8 @@ plot "data0.txt" with linespoints, \
 "data6.txt" with linespoints, \
 "data7.txt" with linespoints, \
 "data8.txt" with linespoints, \
-"data9.txt" with linespoints
+"data9.txt" with linespoints, \
+"data10.txt" with linespoints, \
+"data11.txt" with linespoints, \
+"data12.txt" with linespoints, \
+"data13.txt" with linespoints

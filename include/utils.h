@@ -2,7 +2,11 @@
 #define OTIM_UTILS_H
 
 #if defined(_WIN32)
-#define copy_str(A, B) strcpy_s(A, B)
+void copy_str(char* A, char* B) //strcpy_s(A, B)
+{
+	for (int i = 0; B[i] != 0 && B[i] != '\t' && B[i] != '\n'; ++i)
+		A[i] = B[i];
+}
 #else
 #define copy_str(A, B) strcpy(A, B)
 #endif

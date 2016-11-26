@@ -4,62 +4,6 @@
 #define GEN_SEED 0
 
 /*
-	Generates a solution for the CVRP problem
-
-	- return 0:
-		the function could not generate a correct solution
-		so the caller must call it again
-
-	- return 1
-		the function succeeded
-*/
-int GenSolution(ProblemInstance* instance, std::vector<Vehicle>& solution)
-{
-	int capacity = instance->capacity;
-	int num_vehicles = instance->vehicles;
-	int dimension = instance->dimension;
-	
-	int client = 0;
-
-	for (int i = 0; i < num_vehicles; ++i)
-	{
-		Vehicle v;
-		v.id = i;
-		v.capacity = capacity;
-
-		int cap = 0;
-		for (; cap <= capacity && client < dimension - 1; ++client)
-		{
-			int c_demand = instance->demand[client];
-			if (c_demand + cap > capacity)
-				break;
-
-			Client c(instance->node_coord[client].x, instance->node_coord[client].y, client, c_demand);
-			v.route.push_back(c);
-			cap += c.demand;
-		}
-		v.cargo = cap;
-		solution.push_back(v);
-	}
-
-	// Verify that every client is supplied
-	for (int i = 0; client < dimension - 1; ++i)
-	{
-		if (i >= num_vehicles)
-			return 0;
-		int c_demand = instance->demand[client];
-		if (c_demand + solution[i].cargo <= capacity)
-		{
-			Client c(instance->node_coord[client].x, instance->node_coord[client].y, client, c_demand);
-			solution[i].route.push_back(c);
-			++client;
-			i = 0;
-		}
-	}
-	return 1;
-}
-
-/*
 	Generates a "random" solution for the CVRP problem
 
 	if the seed is 0 = GEN_SEED, it generates its own
@@ -152,6 +96,9 @@ int GetNeighbor(Vehicle& v1, Vehicle& v2, int index1, int index2)
 	return 1;
 }
 
+/*
+	TODO: Verificar se a solução sempre é válida. Caso contrário gerar uma válida
+*/
 int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& solution)
 {
 	int client = 0;
@@ -182,7 +129,7 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 		
 		while (cap <= capacity)
 		{
-			if (cap != 0)
+			if (cap != 0 || i > 0)
 			{
 				float min_distance = 1000.0f;
 				for (int k = 0; k < dimension - 1; ++k)
@@ -198,7 +145,6 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 					}
 				}
 				client_pos = instance->node_coord[client];
-				assigned[client] = true;
 			}
 			else
 			{
@@ -212,6 +158,8 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 			int c_demand = instance->demand[client];
 			if (c_demand + cap > capacity)
 				break;
+			assigned[client] = true;
+			assign_count++;
 
 			Client c(instance->node_coord[client].x, instance->node_coord[client].y, client, instance->demand[client]);
 			v.route.push_back(c);
@@ -221,6 +169,20 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 		solution[i] = v;
 	}
 
+	// Verify that every client is supplied
+	for (int i = 0; assign_count < dimension - 1; ++i)
+	{
+		if (i >= num_vehicles)
+			return 0;
+		int c_demand = instance->demand[assign_count];
+		if (c_demand + solution[i].cargo <= capacity)
+		{
+			Client c(instance->node_coord[assign_count].x, instance->node_coord[assign_count].y, assign_count, c_demand);
+			solution[i].route.push_back(c);
+			++assign_count;
+			i = 0;
+		}
+	}
 	return 1;
 }
 
