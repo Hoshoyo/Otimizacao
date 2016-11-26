@@ -175,15 +175,16 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 		v.capacity = capacity;
 
 		int cap = 0;
+
+		int first_client = -1;
+		int client = -1;
+		vec2 client_pos;
+		
 		while (cap <= capacity)
 		{
-			int first_client = -1;
-			int client = -1;
-			vec2 client_pos;
-			float min_distance = 1000.0f;
 			if (cap != 0)
 			{
-				int closest = -1;
+				float min_distance = 1000.0f;
 				for (int k = 0; k < dimension - 1; ++k)
 				{
 					if (assigned[k] == true)
@@ -194,16 +195,17 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 					{
 						min_distance = distance;
 						client = k;
-						client_pos = coord;
-						break;
 					}
 				}
+				client_pos = instance->node_coord[client];
+				assigned[client] = true;
 			}
 			else
 			{
 				first_client = 0;
 				client = first_client;
 				client_pos = instance->node_coord[client];
+				assigned[client] = true;
 			}
 			
 			// If the demand is higher than capacity

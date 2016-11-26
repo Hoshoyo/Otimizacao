@@ -112,7 +112,8 @@ int main(int argc, char** argv)
 	delete[] ptr;
 
 	std::vector<Vehicle> solution;
-	while (GenRandomSolution(&prob, solution, GEN_SEED) == 0);
+	//while (GenRandomSolution(&prob, solution, GEN_SEED) == 0);
+	int s = GenHeuristicSolution(&prob, solution);
 
 	float current_cost = 0;
 	for (int i = 0; i < solution.size(); ++i)
@@ -127,7 +128,7 @@ int main(int argc, char** argv)
 	int crand2 = 0;
 
 	std::cout << current_cost << "\n";
-	int num_it = 1000000;
+	int num_it = 10000000;
 	for (int it = 0; it < num_it; ++it)
 	{
 		if (it % 10000)
@@ -175,34 +176,6 @@ int main(int argc, char** argv)
 		}
 	}
 	
-	/*
-	// 46 5 49 10 39 33 45 15 44 37 12	Optimal solution
-	Vehicle test;
-	Client c1(prob.node_coord[46 - 1].x, prob.node_coord[46 - 1].y);
-	test.route.push_back(c1);
-	Client c2(prob.node_coord[5 - 1].x, prob.node_coord[5 - 1].y);
-	test.route.push_back(c2);
-	Client c3(prob.node_coord[49 - 1].x, prob.node_coord[49 - 1].y);
-	test.route.push_back(c3);
-	Client c4(prob.node_coord[10 - 1].x, prob.node_coord[10 - 1].y);
-	test.route.push_back(c4);
-	Client c5(prob.node_coord[39 - 1].x, prob.node_coord[39 - 1].y);
-	test.route.push_back(c5);
-	Client c6(prob.node_coord[33 - 1].x, prob.node_coord[33 - 1].y);
-	test.route.push_back(c6);
-	Client c7(prob.node_coord[45 - 1].x, prob.node_coord[45 - 1].y);
-	test.route.push_back(c7);
-	Client c8(prob.node_coord[15 - 1].x, prob.node_coord[15 - 1].y);
-	test.route.push_back(c8);
-	Client c9(prob.node_coord[44 - 1].x, prob.node_coord[44 - 1].y);
-	test.route.push_back(c9);
-	Client c10(prob.node_coord[37 - 1].x, prob.node_coord[37 - 1].y);
-	test.route.push_back(c10);
-	Client c11(prob.node_coord[12 - 1].x, prob.node_coord[12 - 1].y);
-	test.route.push_back(c11);
-	*/
-	
-
 	// Calculate the final cost
 	float total_cost = 0;
 	for (int i = 0; i < solution.size(); ++i)
