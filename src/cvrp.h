@@ -1,6 +1,8 @@
 #ifndef OTIM_CVRP_H
 #define OTIM_CVRP_H
 
+#define NUM_E 2.71828182846f
+
 #include <vector>
 #include "../include/utils.h"
 

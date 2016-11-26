@@ -152,6 +152,76 @@ int GetNeighbor(Vehicle& v1, Vehicle& v2, int index1, int index2)
 	return 1;
 }
 
+int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& solution)
+{
+	int client = 0;
+
+	int capacity = instance->capacity;
+	int num_vehicles = instance->vehicles;
+	int dimension = instance->dimension;
+
+	solution.resize(num_vehicles);
+
+	std::vector<bool> assigned;
+	assigned.resize(dimension - 1);
+	for (bool b : assigned)
+		b = false;
+	int assign_count = 0;
+
+	for (int i = 0; i < num_vehicles; ++i)
+	{
+		Vehicle v;
+		v.id = i;
+		v.capacity = capacity;
+
+		int cap = 0;
+		while (cap <= capacity)
+		{
+			int first_client = -1;
+			int client = -1;
+			vec2 client_pos;
+			float min_distance = 1000.0f;
+			if (cap != 0)
+			{
+				int closest = -1;
+				for (int k = 0; k < dimension - 1; ++k)
+				{
+					if (assigned[k] == true)
+						continue;
+					vec2 coord = instance->node_coord[k];
+					float distance = client_pos.distance(coord);
+					if (distance < min_distance)
+					{
+						min_distance = distance;
+						client = k;
+						client_pos = coord;
+						break;
+					}
+				}
+			}
+			else
+			{
+				first_client = 0;
+				client = first_client;
+				client_pos = instance->node_coord[client];
+			}
+			
+			// If the demand is higher than capacity
+			int c_demand = instance->demand[client];
+			if (c_demand + cap > capacity)
+				break;
+
+			Client c(instance->node_coord[client].x, instance->node_coord[client].y, client, instance->demand[client]);
+			v.route.push_back(c);
+			cap += c.demand;
+		}
+		v.cargo = cap;
+		solution[i] = v;
+	}
+
+	return 1;
+}
+
 /*
 	Calculate the cost(distance) of the Vehicle route
 */

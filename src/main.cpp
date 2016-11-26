@@ -112,13 +112,13 @@ int main(int argc, char** argv)
 	delete[] ptr;
 
 	std::vector<Vehicle> solution;
-	while (GenSolution(&prob, solution) == 0);
+	while (GenRandomSolution(&prob, solution, GEN_SEED) == 0);
 
 	float current_cost = 0;
 	for (int i = 0; i < solution.size(); ++i)
-	{
 		current_cost += CalculateCost(solution[i], prob.depot);
-	}
+
+	float temperature = 10.0f;
 
 	srand(time(0));
 	int vrand1 = 0;
@@ -127,16 +127,21 @@ int main(int argc, char** argv)
 	int crand2 = 0;
 
 	std::cout << current_cost << "\n";
-	int num_it = 10000000;
-	int max = 0;
+	int num_it = 1000000;
 	for (int it = 0; it < num_it; ++it)
 	{
+		if (it % 10000)
+		{
+			if (temperature >= 1)
+				temperature -= 0.1f;
+			else
+				temperature = 1;
+		}
 		do
 		{
-			
 			do {
-				vrand1 = rand() % 5;
-				vrand2 = rand() % 5;
+				vrand1 = rand() % prob.vehicles;
+				vrand2 = rand() % prob.vehicles;
 				crand1 = rand() % solution[vrand1].route.size();
 				crand2 = rand() % solution[vrand2].route.size();
 			} while (crand1 == crand2);
@@ -151,11 +156,16 @@ int main(int argc, char** argv)
 		for (int i = 0; i < solution.size(); ++i)
 			next_cost += CalculateCost(solution[i], prob.depot);
 
-		if (next_cost < current_cost)
+		float delta_e = next_cost - current_cost;
+		float prob = 1.0f / (1 + pow(NUM_E, delta_e / temperature)) * 100;
+		int prob_int = round(prob);
+
+		int move = rand() % 100;
+
+		//if (next_cost < current_cost)
+		if(move < prob_int)
 		{
 			current_cost = next_cost;
-			std::cout << "better " << current_cost << "\n";
-			max = 0;
 		}
 		else
 		{
@@ -205,6 +215,7 @@ int main(int argc, char** argv)
 	}
 	std::cout << "The total cost of the algorithm is " << total_cost << std::endl;
 
+	// Generate gnuplot files
 	for (int i = 0; i < solution.size(); ++i)
 	{
 		std::string dat = "data" + std::to_string(i) + ".txt";
