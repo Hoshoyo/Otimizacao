@@ -104,10 +104,6 @@ int main(int argc, char** argv)
 	for (int i = 0; i < solution.size(); ++i)
 		current_cost += CalculateCost(solution[i], prob.depot);
 	std::cout << "Initial cost:" << current_cost << "\n";
-
-	//SimulatedAnnealing(num_it, iteration_step, temperature, stop_criteria, num_repetitions, iteration_decrease,
-	//	prob, solution, timer);
-
 	
 	// Initialize random for the algorithm run
 	srand(time(0));
