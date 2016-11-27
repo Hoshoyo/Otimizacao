@@ -1,5 +1,6 @@
 #include "cvrp.h"
 #include <time.h>
+#include <cfloat>
 
 #define GEN_SEED 0
 
@@ -68,7 +69,7 @@ int GenRandomSolution(ProblemInstance* instance, std::vector<Vehicle>& solution,
 		solution[i] = v;
 	}
 
-	// Verify that every client is supplied
+	// Verifica que todos os clientes foram supridos
 	for (int i = 0; assign_count < dimension - 1; ++i)
 	{
 		if (i >= num_vehicles)
@@ -97,7 +98,7 @@ int GetNeighbor(Vehicle& v1, Vehicle& v2, int index1, int index2)
 }
 
 /*
-	TODO: Verificar se a solução sempre é válida. Caso contrário gerar uma válida
+	Gera uma solução heurística para o problema
 */
 int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& solution)
 {
@@ -108,7 +109,9 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 	int dimension = instance->dimension;
 
 	solution.resize(num_vehicles);
+	srand(time(0));
 
+	// Gera vetor assigned para verificar se um cliente já entrou na solução
 	std::vector<bool> assigned;
 	assigned.resize(dimension - 1);
 	for (bool b : assigned)
@@ -131,7 +134,7 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 		{
 			if (cap != 0 || i > 0)
 			{
-				float min_distance = 1000.0f;
+				float min_distance = FLT_MAX;
 				for (int k = 0; k < dimension - 1; ++k)
 				{
 					if (assigned[k] == true)
@@ -148,7 +151,7 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 			}
 			else
 			{
-				first_client = 0;
+				first_client = rand() % (instance->dimension - 1);
 				client = first_client;
 				client_pos = instance->node_coord[client];
 				assigned[client] = true;
@@ -156,7 +159,7 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 			
 			// If the demand is higher than capacity
 			int c_demand = instance->demand[client];
-			if (c_demand + cap > capacity)
+			if (c_demand + cap > capacity || assign_count >= dimension - 1)
 				break;
 			assigned[client] = true;
 			assign_count++;
@@ -169,7 +172,7 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 		solution[i] = v;
 	}
 
-	// Verify that every client is supplied
+	// Verifica que todos os clientes foram supridos
 	for (int i = 0; assign_count < dimension - 1; ++i)
 	{
 		if (i >= num_vehicles)

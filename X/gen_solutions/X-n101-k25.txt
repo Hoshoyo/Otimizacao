@@ -1,0 +1,281 @@
+28642.9
+Rota 0: 15 54 68 75 
+Rota 1: 0 69 8 89 89 83 
+Rota 2: 85 67 65 
+Rota 3: 91 91 53 
+Rota 4: 3 6 73 12 
+Rota 5: 64 24 17 
+Rota 6: 40 21 14 19 
+Rota 7: 34 45 23 31 
+Rota 8: 57 11 4 
+Rota 9: 5 44 1 48 9 
+Rota 10: 38 62 66 87 
+Rota 11: 76 13 58 87 
+Rota 12: 41 77 27 
+Rota 13: 99 55 93 2 63 
+Rota 14: 86 81 56 71 59 
+Rota 15: 30 94 
+Rota 16: 33 39 43 
+Rota 17: 79 16 
+Rota 18: 36 35 28 42 86 
+Rota 19: 7 60 
+Rota 20: 95 25 47 46 
+Rota 21: 32 52 72 
+Rota 22: 49 78 29 84 
+Rota 23: 20 88 90 96 
+Rota 24: 22 18 10 
+The total cost of the algorithm is 26285.7
+Time elapsed: 0.151306
+
+Rota 0: 15 54 68 75 
+Rota 1: 0 69 8 89 89 83 
+Rota 2: 85 67 65 
+Rota 3: 53 91 91 
+Rota 4: 3 6 73 12 
+Rota 5: 64 24 17 
+Rota 6: 40 21 14 19 
+Rota 7: 34 45 23 31 
+Rota 8: 57 11 4 
+Rota 9: 5 44 1 48 77 
+Rota 10: 38 62 66 87 
+Rota 11: 76 13 58 87 
+Rota 12: 9 41 27 
+Rota 13: 99 55 93 2 63 
+Rota 14: 86 81 56 71 59 
+Rota 15: 30 94 
+Rota 16: 33 39 43 
+Rota 17: 16 79 
+Rota 18: 36 35 28 42 86 
+Rota 19: 60 7 
+Rota 20: 95 25 47 46 
+Rota 21: 72 52 32 
+Rota 22: 49 78 29 84 
+Rota 23: 20 88 90 96 
+Rota 24: 22 18 10 
+The total cost of the algorithm is 26216.4
+Time elapsed: 0.151091
+
+Rota 0: 15 54 68 75 
+Rota 1: 0 69 8 89 89 83 
+Rota 2: 85 67 65 
+Rota 3: 91 91 53 
+Rota 4: 3 6 73 12 
+Rota 5: 64 24 17 
+Rota 6: 40 21 14 19 
+Rota 7: 34 45 23 31 
+Rota 8: 4 11 57 
+Rota 9: 5 44 1 48 77 
+Rota 10: 38 62 66 87 
+Rota 11: 76 13 58 87 
+Rota 12: 9 41 27 
+Rota 13: 99 55 93 2 63 
+Rota 14: 86 81 56 71 59 
+Rota 15: 94 30 
+Rota 16: 33 39 43 
+Rota 17: 79 16 
+Rota 18: 36 35 28 42 86 
+Rota 19: 7 60 
+Rota 20: 95 25 47 46 
+Rota 21: 32 52 72 
+Rota 22: 49 78 29 84 
+Rota 23: 20 88 90 96 
+Rota 24: 10 18 22 
+The total cost of the algorithm is 26216.4
+Time elapsed: 0.151803
+
+Rota 0: 15 54 68 75 
+Rota 1: 0 69 8 89 89 83 
+Rota 2: 85 67 65 
+Rota 3: 53 91 91 
+Rota 4: 3 6 73 12 
+Rota 5: 64 24 17 
+Rota 6: 40 21 14 19 
+Rota 7: 34 45 23 31 
+Rota 8: 4 11 57 
+Rota 9: 5 44 1 48 77 
+Rota 10: 38 62 66 87 
+Rota 11: 76 13 58 87 
+Rota 12: 9 41 27 
+Rota 13: 99 55 93 2 63 
+Rota 14: 86 81 56 71 59 
+Rota 15: 94 30 
+Rota 16: 33 39 43 
+Rota 17: 79 16 
+Rota 18: 36 35 28 42 86 
+Rota 19: 60 7 
+Rota 20: 95 25 47 46 
+Rota 21: 32 52 72 
+Rota 22: 49 78 29 84 
+Rota 23: 20 88 90 96 
+Rota 24: 10 18 22 
+The total cost of the algorithm is 26216.4
+Time elapsed: 0.150776
+
+Rota 0: 15 54 68 75 
+Rota 1: 0 69 8 89 89 83 
+Rota 2: 85 67 65 
+Rota 3: 53 91 91 
+Rota 4: 3 6 73 12 
+Rota 5: 64 24 17 
+Rota 6: 40 21 14 19 
+Rota 7: 34 45 23 31 
+Rota 8: 4 11 57 
+Rota 9: 5 44 1 48 77 
+Rota 10: 38 62 66 87 
+Rota 11: 76 13 58 87 
+Rota 12: 9 41 27 
+Rota 13: 99 55 93 2 63 
+Rota 14: 86 81 56 71 59 
+Rota 15: 30 94 
+Rota 16: 33 39 43 
+Rota 17: 79 16 
+Rota 18: 36 35 28 42 86 
+Rota 19: 60 7 
+Rota 20: 95 25 47 46 
+Rota 21: 32 52 72 
+Rota 22: 49 78 29 84 
+Rota 23: 20 88 90 96 
+Rota 24: 22 18 10 
+The total cost of the algorithm is 26216.4
+Time elapsed: 0.151533
+
+Rota 0: 15 54 68 75 
+Rota 1: 0 69 8 89 89 83 
+Rota 2: 85 67 65 
+Rota 3: 53 91 91 
+Rota 4: 3 6 73 12 
+Rota 5: 64 24 17 
+Rota 6: 40 21 14 19 
+Rota 7: 34 45 23 31 
+Rota 8: 57 11 4 
+Rota 9: 5 44 1 48 77 
+Rota 10: 38 62 66 87 
+Rota 11: 76 13 58 87 
+Rota 12: 9 41 27 
+Rota 13: 99 55 93 2 63 
+Rota 14: 86 81 56 71 59 
+Rota 15: 30 94 
+Rota 16: 33 39 43 
+Rota 17: 16 79 
+Rota 18: 36 35 28 42 86 
+Rota 19: 60 7 
+Rota 20: 95 25 47 46 
+Rota 21: 72 52 32 
+Rota 22: 49 78 29 84 
+Rota 23: 20 88 90 96 
+Rota 24: 22 18 10 
+The total cost of the algorithm is 26216.4
+Time elapsed: 0.151717
+
+Rota 0: 15 54 68 75 
+Rota 1: 0 69 8 89 89 83 
+Rota 2: 85 67 65 
+Rota 3: 91 91 53 
+Rota 4: 3 6 73 12 
+Rota 5: 64 24 17 
+Rota 6: 40 21 14 19 
+Rota 7: 34 45 23 31 
+Rota 8: 4 11 57 
+Rota 9: 5 44 1 48 77 
+Rota 10: 38 62 66 87 
+Rota 11: 76 13 58 87 
+Rota 12: 9 41 27 
+Rota 13: 99 55 93 2 63 
+Rota 14: 86 81 56 71 59 
+Rota 15: 30 94 
+Rota 16: 33 39 43 
+Rota 17: 79 16 
+Rota 18: 36 35 28 42 86 
+Rota 19: 7 60 
+Rota 20: 95 25 47 46 
+Rota 21: 32 52 72 
+Rota 22: 49 78 29 84 
+Rota 23: 20 88 90 96 
+Rota 24: 22 18 10 
+The total cost of the algorithm is 26216.4
+Time elapsed: 0.150896
+
+Rota 0: 15 54 68 75 
+Rota 1: 0 69 8 89 89 83 
+Rota 2: 85 67 65 
+Rota 3: 91 91 53 
+Rota 4: 3 6 73 12 
+Rota 5: 64 24 17 
+Rota 6: 40 21 14 19 
+Rota 7: 34 45 23 31 
+Rota 8: 57 11 4 
+Rota 9: 5 44 1 48 77 
+Rota 10: 38 62 66 87 
+Rota 11: 76 13 58 87 
+Rota 12: 9 41 27 
+Rota 13: 99 55 93 2 63 
+Rota 14: 86 81 56 71 59 
+Rota 15: 94 30 
+Rota 16: 33 39 43 
+Rota 17: 16 79 
+Rota 18: 36 35 28 42 86 
+Rota 19: 7 60 
+Rota 20: 95 25 47 46 
+Rota 21: 32 52 72 
+Rota 22: 49 78 29 84 
+Rota 23: 20 88 90 96 
+Rota 24: 22 18 10 
+The total cost of the algorithm is 26216.4
+Time elapsed: 0.1502
+
+Rota 0: 15 54 68 75 
+Rota 1: 0 69 8 89 89 83 
+Rota 2: 85 67 65 
+Rota 3: 91 91 53 
+Rota 4: 3 6 73 12 
+Rota 5: 64 24 17 
+Rota 6: 40 21 14 19 
+Rota 7: 34 45 23 31 
+Rota 8: 57 11 4 
+Rota 9: 5 44 1 48 77 
+Rota 10: 38 62 66 87 
+Rota 11: 76 13 58 87 
+Rota 12: 9 41 27 
+Rota 13: 99 55 93 2 63 
+Rota 14: 86 81 56 71 59 
+Rota 15: 30 94 
+Rota 16: 33 39 43 
+Rota 17: 79 16 
+Rota 18: 36 35 28 42 86 
+Rota 19: 7 60 
+Rota 20: 95 25 47 46 
+Rota 21: 72 52 32 
+Rota 22: 49 78 29 84 
+Rota 23: 20 88 90 96 
+Rota 24: 22 18 10 
+The total cost of the algorithm is 26216.4
+Time elapsed: 0.149834
+
+Rota 0: 15 54 68 75 
+Rota 1: 0 69 8 89 89 83 
+Rota 2: 85 67 65 
+Rota 3: 91 91 53 
+Rota 4: 3 6 73 12 
+Rota 5: 64 24 17 
+Rota 6: 40 21 14 19 
+Rota 7: 34 45 23 31 
+Rota 8: 57 11 4 
+Rota 9: 5 44 1 48 77 
+Rota 10: 38 62 66 87 
+Rota 11: 76 13 58 87 
+Rota 12: 9 41 27 
+Rota 13: 99 55 93 2 63 
+Rota 14: 86 81 56 71 59 
+Rota 15: 94 30 
+Rota 16: 33 39 43 
+Rota 17: 16 79 
+Rota 18: 36 35 28 42 86 
+Rota 19: 60 7 
+Rota 20: 95 25 47 46 
+Rota 21: 32 52 72 
+Rota 22: 49 78 29 84 
+Rota 23: 20 88 90 96 
+Rota 24: 10 18 22 
+The total cost of the algorithm is 26216.4
+Time elapsed: 0.150739
+

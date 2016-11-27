@@ -1,15 +1,54 @@
 #ifndef OTIM_UTILS_H
 #define OTIM_UTILS_H
 
-#if defined(_WIN32)
-void copy_str(char* A, char* B) //strcpy_s(A, B)
+#include <windows.h>
+
+class Timer
+{
+public:
+	Timer()
+	{
+		g_timerInitialized = false;
+	}
+private:
+	double g_freq;
+	bool g_timerInitialized;
+
+	double m_start;
+public:
+	double GetTime()
+	{
+		if (!g_timerInitialized)
+		{
+			LARGE_INTEGER li;
+			QueryPerformanceFrequency(&li);
+
+			g_freq = double(li.QuadPart);
+			g_timerInitialized = true;
+		}
+
+		LARGE_INTEGER li;
+		QueryPerformanceCounter(&li);
+
+		return double(li.QuadPart) / g_freq;
+	}
+
+	void StartTimer()
+	{
+		m_start = GetTime();
+	}
+
+	double ElapsedTime()
+	{
+		return GetTime() - m_start;
+	}
+};
+
+void copy_str(char* A, char* B)
 {
 	for (int i = 0; B[i] != 0 && B[i] != '\t' && B[i] != '\n'; ++i)
 		A[i] = B[i];
 }
-#else
-#define copy_str(A, B) strcpy(A, B)
-#endif
 
 typedef unsigned char u8;
 
@@ -42,6 +81,7 @@ struct vec2
 	}
 };
 
+// Função para parse (pula o caracter especificado c)
 void skip(char** data, char c)
 {
 	char dt = **data;
@@ -65,6 +105,7 @@ void skip(char** data, char c)
 	(*data)++;
 }
 
+// Função para parse pula caracteres de whitespace
 inline void eat_ws(char** data)
 {
 	char c = **data;
@@ -75,6 +116,7 @@ inline void eat_ws(char** data)
 	}
 }
 
+// compara duas strings
 int cmp_first_word(char* word, char* comp)
 {
 	for (int i = 0; word[i] != ' ' && word[i] != ':' && word[i] != '\n' && comp[i] != 0; ++i)
