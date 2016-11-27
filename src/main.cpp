@@ -96,15 +96,19 @@ int main(int argc, char** argv)
 	}
 	else
 	{
-		GenHeuristicSolution(&prob, solution);
+		GenHeuristicSolution(&prob, solution, false);
 	}
 
 	// Calculate initial cost
 	float current_cost = 0;
 	for (int i = 0; i < solution.size(); ++i)
 		current_cost += CalculateCost(solution[i], prob.depot);
-	std::cout << current_cost << "\n";
+	std::cout << "Initial cost:" << current_cost << "\n";
 
+	//SimulatedAnnealing(num_it, iteration_step, temperature, stop_criteria, num_repetitions, iteration_decrease,
+	//	prob, solution, timer);
+
+	
 	// Initialize random for the algorithm run
 	srand(time(0));
 	int vrand1 = 0;
@@ -189,6 +193,7 @@ int main(int argc, char** argv)
 		timer.StartTimer();
 		num_repetitions--;
 	} while (num_repetitions != 0);
+	
 
 	if (gen_gnuplot_files)
 	{

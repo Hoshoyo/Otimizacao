@@ -100,7 +100,7 @@ int GetNeighbor(Vehicle& v1, Vehicle& v2, int index1, int index2)
 /*
 	Gera uma solução heurística para o problema
 */
-int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& solution)
+int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& solution, bool random_start)
 {
 	int client = 0;
 
@@ -171,21 +171,80 @@ int GenHeuristicSolution(ProblemInstance* instance, std::vector<Vehicle>& soluti
 		v.cargo = cap;
 		solution[i] = v;
 	}
-
-	// Verifica que todos os clientes foram supridos
+	
+	/*
 	for (int i = 0; assign_count < dimension - 1; ++i)
 	{
 		if (i >= num_vehicles)
-			return 0;
+			break;
 		int c_demand = instance->demand[assign_count];
 		if (c_demand + solution[i].cargo <= capacity)
 		{
 			Client c(instance->node_coord[assign_count].x, instance->node_coord[assign_count].y, assign_count, c_demand);
 			solution[i].route.push_back(c);
+			solution[i].cargo += c_demand;
 			++assign_count;
 			i = 0;
 		}
+	}*/
+	
+	// Verifica que todos os clientes foram supridos
+	while (assign_count < dimension - 1)
+	{
+		int min_cargo = solution[0].cargo;
+		int solution_index = 0;
+
+		int second_min_cargo = solution[0].cargo;
+		int second_solution_index = 0;
+
+		// Procura as duas rotas menos usadas
+		for (int i = 1; i < num_vehicles; ++i)
+		{
+			if (solution[i].cargo < min_cargo)
+			{
+				min_cargo = solution[i].cargo;
+				solution_index = i;
+			}
+		}
+		for (int i = 1; i < num_vehicles; ++i)
+		{
+			if (solution[i].cargo < second_min_cargo && solution_index != i)
+			{
+				second_min_cargo = solution[i].cargo;
+				second_solution_index = i;
+			}
+		}
+
+		// Realoca os clientes de menor demanda para a segunda rota menos usada
+		// e aloca na rota que foi liberada o cliente de maior demanda
+		for (int i = 0; i < solution[solution_index].route.size(); ++i)
+		{
+			if (solution[solution_index].route[i].demand + solution[second_solution_index].cargo <= capacity)
+			{
+				int c_demand = solution[solution_index].route[i].demand;
+				Client c(instance->node_coord[i].x, instance->node_coord[i].y, solution[solution_index].id, c_demand);
+				solution[second_solution_index].route.push_back(c);
+				solution[second_solution_index].cargo += c_demand;
+				solution[solution_index].cargo -= c_demand;
+				solution[solution_index].route.erase(solution[solution_index].route.begin() + i);
+			}
+		}
+		for (int i = 0; i < assigned.size(); ++i)
+		{
+			if (assigned[i] == false)
+			{
+				int c_demand = instance->demand[i];
+				if (c_demand + solution[solution_index].cargo <= capacity)
+				{
+					Client c(instance->node_coord[i].x, instance->node_coord[i].y, solution[solution_index].id, c_demand);
+					solution[solution_index].cargo += c_demand;
+					solution[solution_index].route.push_back(c);
+					++assign_count;
+				}
+			}
+		}
 	}
+
 	return 1;
 }
 
